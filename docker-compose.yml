@@ -1,0 +1,82 @@
+services:
+  web-app:
+    container_name: dev_app
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./development:/development
+    env_file:
+      - .env
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - database
+
+  database:
+    container_name: dev_database
+    image: postgres:alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+#  redis:
+#    container_name: redis
+#    image: redis:7.0.5-alpine
+#    hostname: redis
+#
+#  worker:
+#    container_name: worker
+#    build:
+#      context: .
+#    hostname: worker
+#    entrypoint: celery
+#    command: -A celery_app.app worker --loglevel=info
+#    volumes:
+#      - ./autoworld:/autoworld
+#    links:
+#      - redis
+#    depends_on:
+#      - redis
+#      - database
+#    env_file:
+#      - .env
+
+#  beat:
+#    container_name: beat
+#    build:
+#      context: .
+#    hostname: beat
+#    entrypoint: celery
+#    command: -A celery_app.app beat --loglevel=info
+#    volumes:
+#      - ./autoworld:/autoworld
+#    links:
+#      - redis
+#    depends_on:
+#      - worker
+#    env_file:
+#      - .env
+
+#  flower:
+#    container_name: flower
+#    build:
+#      context: .
+#    hostname: flower
+#    entrypoint: celery
+#    command: -A celery_app.app flower
+#    volumes:
+#      - ./autoworld:/autoworld
+#    links:
+#      - redis
+#    depends_on:
+#      - redis
+#    ports:
+#      - "5555:5555"
+
+volumes:
+  pg_data:
+    driver: local
+    name: pg_data
