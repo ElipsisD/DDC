@@ -24,4 +24,4 @@ def get_message_text() -> str:
     queryset = Post.objects.filter(publication_date__date=today)
     head = config.MESSAGE_TEXT
     body = '\n'.join(post.title.upper() for post in queryset)
-    return head + '/n/n' + body
+    return head + ' ' + body

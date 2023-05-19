@@ -3,6 +3,7 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 from constance import config
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'development.settings')
 
 app = Celery('development')

@@ -44,8 +44,12 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'constance',
+    'import_export',
+    'leaflet',
+    'djgeojson',
 
     'news.apps.NewsConfig',
+    'places.apps.PlacesConfig',
 ]
 
 MIDDLEWARE = [
@@ -163,4 +167,3 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_TIMEZONE = 'Asia/Krasnoyarsk'
 
 CONSTANCE_REDIS_CONNECTION = 'redis://redis:6379/0'
-
