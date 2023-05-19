@@ -3,3 +3,8 @@ djangorestframework
 psycopg2==2.9.6
 django-summernote==0.8.20.0
 django-versatileimagefield==3.0
+celery[redis]==5.2.7
+django-celery-results==2.5.1
+flower==1.2.0
+django-celery-beat==2.5.0
+django-constance[redis]==2.9.1

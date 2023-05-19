@@ -22,59 +22,59 @@ services:
     env_file:
       - .env
 
-#  redis:
-#    container_name: redis
-#    image: redis:7.0.5-alpine
-#    hostname: redis
-#
-#  worker:
-#    container_name: worker
-#    build:
-#      context: .
-#    hostname: worker
-#    entrypoint: celery
-#    command: -A celery_app.app worker --loglevel=info
-#    volumes:
-#      - ./development:/development
-#    links:
-#      - redis
-#    depends_on:
-#      - redis
-#      - database
-#    env_file:
-#      - .env
+  redis:
+    container_name: dev_redis
+    image: redis:alpine
+    hostname: redis
 
-#  beat:
-#    container_name: beat
-#    build:
-#      context: .
-#    hostname: beat
-#    entrypoint: celery
-#    command: -A celery_app.app beat --loglevel=info
-#    volumes:
-#      - ./development:/development
-#    links:
-#      - redis
-#    depends_on:
-#      - worker
-#    env_file:
-#      - .env
+  worker:
+    container_name: dev_worker
+    build:
+      context: .
+    hostname: worker
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - ./development:/development
+    links:
+      - redis
+    depends_on:
+      - redis
+      - database
+    env_file:
+      - .env
 
-#  flower:
-#    container_name: flower
-#    build:
-#      context: .
-#    hostname: flower
-#    entrypoint: celery
-#    command: -A celery_app.app flower
-#    volumes:
-#      - ./development:/development
-#    links:
-#      - redis
-#    depends_on:
-#      - redis
-#    ports:
-#      - "5555:5555"
+  beat:
+    container_name: dev_beat
+    build:
+      context: .
+    hostname: beat
+    entrypoint: celery
+    command: -A celery_app.app beat --loglevel=info
+    volumes:
+      - ./development:/development
+    links:
+      - redis
+    depends_on:
+      - worker
+    env_file:
+      - .env
+
+  flower:
+    container_name: dev_flower
+    build:
+      context: .
+    hostname: flower
+    entrypoint: celery
+    command: -A celery_app.app flower
+    volumes:
+      - ./development:/development
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
 
 volumes:
   pg_data:
