@@ -3,7 +3,8 @@ from django.db import models
 from versatileimagefield.fields import VersatileImageField
 
 
-def get_user():
+def get_user() -> User:
+    """Возвращает объект admin"""
     return User.objects.get(id=1)
 
 

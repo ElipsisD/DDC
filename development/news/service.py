@@ -12,7 +12,7 @@ msg_template = """
 {body}
 """
 
-def send_news():
+def send_news() -> None:
     """Отправка сообщения в соответствии с CONSTANCE"""
     send_mail(
         config.MESSAGE_SUBJECT,
