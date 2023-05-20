@@ -1,11 +1,16 @@
 import os
 from datetime import date
 
-from django.core.mail import send_mail
 from constance import config
+from django.core.mail import send_mail
 
 from news.models import Post
 
+msg_template = """
+{head}
+
+{body}
+"""
 
 def send_news():
     """Отправка сообщения в соответствии с CONSTANCE"""
@@ -24,4 +29,4 @@ def get_message_text() -> str:
     queryset = Post.objects.filter(publication_date__date=today)
     head = config.MESSAGE_TEXT
     body = '\n'.join(post.title.upper() for post in queryset)
-    return head + ' ' + body
+    return msg_template.format(body=body, head=head)

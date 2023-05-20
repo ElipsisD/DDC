@@ -3,13 +3,11 @@ FROM python:3.11-alpine
 WORKDIR /development
 EXPOSE 8000
 
-RUN apk add postgresql-client build-base postgresql-dev
-RUN apk add gdal gdal-dev geos geos-dev
+RUN apk add postgresql-client build-base postgresql-dev gdal gdal-dev geos geos-dev --no-cache tzdata
 
 RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal
 RUN export C_INCLUDE_PATH=/usr/include/gdal
 
-RUN apk add --no-cache tzdata
 ENV TZ=Asia/Krasnoyarsk
 ENV LANG ru_RU.UTF-8
 ENV LC_ALL ru_RU.UTF-8
