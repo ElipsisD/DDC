@@ -9,6 +9,12 @@ RUN apk add gdal gdal-dev geos geos-dev
 RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal
 RUN export C_INCLUDE_PATH=/usr/include/gdal
 
+RUN apk add --no-cache tzdata
+ENV TZ=Asia/Krasnoyarsk
+ENV LANG ru_RU.UTF-8
+ENV LC_ALL ru_RU.UTF-8
+RUN cp /usr/share/zoneinfo/Asia/Krasnoyarsk /etc/localtime
+
 COPY requirements.txt /temp/requirements.txt
 RUN pip install --no-cache-dir -r /temp/requirements.txt
 

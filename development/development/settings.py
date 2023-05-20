@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import locale
 import os
 from pathlib import Path
 from .settings_constance import *
@@ -122,6 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Asia/Krasnoyarsk'
+locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
 USE_I18N = True
 

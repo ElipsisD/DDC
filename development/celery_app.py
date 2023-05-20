@@ -2,7 +2,6 @@ import os
 
 from celery import Celery
 from celery.schedules import crontab
-from constance import config
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'development.settings')
 
@@ -14,8 +13,14 @@ app.conf.beat_schedule = {
     'every-day': {
         'task': 'news.tasks.do_send_news',
         'schedule': crontab(
-            minute=config.DISPATCH_TIME.minute,
-            hour=config.DISPATCH_TIME.hour,
+            minute=0,
+            hour=11,
         ),
     },
+    'every-hour': {
+        'task': 'places.tasks.do_get_weather',
+        'schedule': crontab(
+            minute=0
+        )
+    }
 }

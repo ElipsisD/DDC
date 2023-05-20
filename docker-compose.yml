@@ -21,6 +21,9 @@ services:
       - pg_data:/var/lib/postgresql/data
     env_file:
       - .env
+    environment:
+      TZ: 'GMT+7'
+      PGTZ: 'GMT+7'
 
   redis:
     container_name: dev_redis

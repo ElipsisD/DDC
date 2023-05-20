@@ -14,3 +14,21 @@ class Place(models.Model):
     class Meta:
         verbose_name = 'примечательное место'
         verbose_name_plural = 'примечательные места'
+
+
+class Weather(models.Model):
+    place = models.ForeignKey('Place', on_delete=models.CASCADE, verbose_name='примечательное место')
+    temperature = models.SmallIntegerField(verbose_name='температура, С')
+    humidity = models.PositiveSmallIntegerField(verbose_name='влажность воздуха, %', validators=[MaxValueValidator(100)])
+    pressure = models.PositiveSmallIntegerField(verbose_name='атмосферное давление, мм рт. ст.')
+    wind_direction = models.CharField(verbose_name='направление ветра')
+    wind_speed = models.SmallIntegerField(verbose_name='скорость ветра, м/с')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='дата запроса')
+
+    def __str__(self):
+        # return f'{self.pk}: Погода в {self.place.name} {self.time_create}'
+        return f'{self.pk}: Погода в {self.place.name}'
+
+    class Meta:
+        verbose_name = 'показание погоды'
+        verbose_name_plural = 'показания погоды'
